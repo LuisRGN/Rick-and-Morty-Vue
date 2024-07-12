@@ -1,11 +1,9 @@
 <script>
- import MyComponente from "./components/MyComponente.vue"
  import MyNavbar from "./components/MyNavbar.vue"
 
  export default {
   name: "App",
   components:{
-    MyComponente,
     MyNavbar
   }
  }
@@ -14,7 +12,7 @@
 <template>
  <div>
   <MyNavbar/>
-  <MyComponente/>
+  <router-view />
  </div>
 </template>
 
