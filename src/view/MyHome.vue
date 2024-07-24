@@ -1,18 +1,20 @@
 <!-- src/view/MyHome.vue -->
 <template>
   <div>
-    <h1>Home Page</h1>
     <MyComponente/>
+    <CharacterList/>
   </div>
 </template>
 
 <script>
 import MyComponente from '@/components/MyComponente.vue';
+import CharacterList from '@/components/CharacterList.vue'
 
 export default {
   name: 'MyHome',
   components: {
-    MyComponente
+    MyComponente,
+    CharacterList
   }
 }
 </script>
