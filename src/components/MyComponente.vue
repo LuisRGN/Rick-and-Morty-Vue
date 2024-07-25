@@ -1,7 +1,7 @@
 <!-- src/components/MyComponente.vue -->
 <template>
   <div>
-    <h2>Hola desde MyComponente</h2> 
+    <h2 class="text-light">Hola desde MyComponente</h2> 
   </div>
 </template>
 
