@@ -1,10 +1,12 @@
 <script>
  import MyNavbar from "./components/MyNavbar.vue"
+ import ScrollToTopButton from "./components/ScrollToTopButton.vue"
 
  export default {
   name: "App",
   components:{
-    MyNavbar
+    MyNavbar,
+    ScrollToTopButton
   }
  }
 </script>
@@ -13,6 +15,7 @@
  <div>
   <MyNavbar/>
   <router-view />
+  <ScrollToTopButton/>
  </div>
 </template>
 
