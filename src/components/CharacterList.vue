@@ -123,7 +123,7 @@ export default {
 }
 
 .status-robot {
-  color: #808080;
+  color: #737373;
 }
 
 .status-humanoid {
@@ -139,7 +139,7 @@ export default {
 }
 
 .status-unknowns {
-  color: #FFFF00;
+  color: grey;
 }
 
 .status-male {
@@ -150,9 +150,9 @@ export default {
 }
 
 .status-genderless {
-  color: #6c757d;
+  color: #fd7e14;
 }
 .status-unknownn {
-  color: #fd7e14;
+  color: grey;
 }
 </style>
