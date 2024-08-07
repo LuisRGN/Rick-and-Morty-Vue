@@ -90,11 +90,11 @@ export default {
 }
 
 .status-alien {
-  color: #00FF00;
+  color: #1ca71c;
 }
 
 .status-human {
-  color: #0000FF;
+  color: #0000ff98;
 }
 
 .status-mythological {
@@ -102,19 +102,19 @@ export default {
 }
 
 .status-robot {
-  color: #737373;
+  color: #565656;
 }
 
 .status-humanoid {
-  color: #FFA500;
+  color: #5a008e;
 }
 
 .status-animal {
-  color: #A52A2A;
+  color: #785625;
 }
 
 .status-cronenberg {
-  color: #FF0000;
+  color: #870202;
 }
 
 .status-unknowns {
@@ -122,14 +122,14 @@ export default {
 }
 
 .status-male {
-  color: #007bff;
+  color: #2b0cb5;
 }
 .status-female {
-  color: #ff69b4;
+  color: #be3c7d;
 }
 
 .status-genderless {
-  color: #fd7e14;
+  color: #a15212;
 }
 .status-unknownn {
   color: grey;
