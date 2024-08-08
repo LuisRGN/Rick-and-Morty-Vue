@@ -3,7 +3,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-4" v-for="character in filteredCharacters" :key="character.id">
-        <div class="card mb-4 custom-card-color">
+        <div class="card mb-4 custom-card-color custom-shadown">
           <img :src="character.image" class="card-img-top" :alt="character.name">
           <div class="card-body">
             <h3 class="card-title">{{ character.name }}</h3>
@@ -20,6 +20,8 @@
               'status-humanoid': character.species === 'Humanoid',
               'status-animal': character.species === 'Animal',
               'status-cronenberg': character.species === 'Cronenberg',
+              'status-poopybutthole': character.species === 'Poopybutthole',
+              'status-disease': character.species === 'Disease',
               'status-unknowns': character.species === 'unknown'
             }">{{ character.species }}</span></h6>
             <h6 class="card-text">Gender: <span :class="{
@@ -72,7 +74,9 @@ export default {
   width: 100%;
   height: auto;
 }
-
+.custom-shadown{
+  box-shadow: 0 0.1rem 0.2rem #00000033, 0 0.1rem 0.5rem #0000004d, 0 0.2rem 1.5rem #00000066;
+}
 .status-alive {
   color: green;
 }
@@ -130,6 +134,12 @@ export default {
 
 .status-genderless {
   color: #a15212;
+}
+.status-poopybutthole{
+  color: #e66c6c75;
+}
+.status-disease{
+  color: #967000c4;
 }
 .status-unknownn {
   color: grey;
