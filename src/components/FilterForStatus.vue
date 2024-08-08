@@ -49,7 +49,7 @@ export default {
   color: #ffffff; /* Color del texto personalizado */
 }
 .custom-select:focus {
-  border-color: #004d40; /* Color del borde cuando está enfocado */
+  border-color: #93cca1; /* Color del borde cuando está enfocado */
   box-shadow: 0 0 0 0.2rem rgba(0, 77, 64, 0.25); /* Sombra cuando está enfocado */
 }
 </style>
