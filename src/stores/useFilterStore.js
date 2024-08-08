@@ -1,11 +1,10 @@
-// src/stores/useCharacterStore.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useCharacterStore = defineStore('character', {
     state: () => ({
-        characters: [],
-        filteredCharacters: [],
+        allCharacters: [], // Lista original de personajes
+        filteredCharacters: [], // Lista filtrada de personajes
         currentPage: 1,
         hasNext: false,
         hasPrev: false,
@@ -20,7 +19,7 @@ export const useCharacterStore = defineStore('character', {
         async fetchCharacters(page = 1) {
             try {
                 const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}`);
-                this.characters = response.data.results;
+                this.allCharacters = response.data.results;
                 this.hasNext = !!response.data.info.next;
                 this.hasPrev = !!response.data.info.prev;
                 this.currentPage = page;
@@ -33,10 +32,18 @@ export const useCharacterStore = defineStore('character', {
             this.filters.gender = gender;
             this.applyFilters();
         },
+        setStatusFilter(status) {
+            this.filters.status = status;
+            this.applyFilters();
+        },
         applyFilters() {
-            this.filteredCharacters = this.characters.filter(character => {
+            const { name, status, species, gender } = this.filters;
+            this.filteredCharacters = this.allCharacters.filter(character => {
                 return (
-                    (this.filters.gender === '' || character.gender === this.filters.gender)
+                    (name === '' || character.name.includes(name)) &&
+                    (status === '' || character.status === status) &&
+                    (species === '' || character.species === species) &&
+                    (gender === '' || character.gender === gender)
                 );
             });
         },
@@ -52,4 +59,5 @@ export const useCharacterStore = defineStore('character', {
         },
     },
 });
+
 
