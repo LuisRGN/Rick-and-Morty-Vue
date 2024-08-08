@@ -1,10 +1,10 @@
 <!-- src/components/MyComponente.vue -->
 <template>
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-6">
+  <div class="">
+    <div class="">
+      <div class="">
         <div class="form-group">
-          <label for="gender" class="form-label text-light">Filter by Gender:</label>
+          <label for="gender" class="form-label text-light">Filter by Gender</label>
           <select id="gender" v-model="selectedGender" @change="updateGenderFilter" class="form-select custom-select">
             <option value="">All</option>
             <option value="Male">Male</option>
@@ -14,7 +14,6 @@
           </select>
         </div>
       </div>
-      <!-- Puedes agregar más filtros aquí, usando Bootstrap para el diseño -->
     </div>
   </div>
 </template>
