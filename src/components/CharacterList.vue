@@ -3,33 +3,13 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-4" v-for="character in filteredCharacters" :key="character.id">
-        <div class="card mb-4 custom-card-color custom-shadown">
+        <div class="card mb-4 custom-card-color custom-shadown" style="width: 18rem;">
           <img :src="character.image" class="card-img-top" :alt="character.name">
           <div class="card-body">
             <h3 class="card-title">{{ character.name }}</h3>
-            <h6 class="card-text">Status: <span :class="{
-              'status-alive': character.status === 'Alive',
-              'status-dead': character.status === 'Dead',
-              'status-unknown': character.status === 'unknown'
-            }">{{ character.status }}</span></h6>
-            <h6 class="card-text">Species: <span :class="{
-              'status-alien': character.species === 'Alien',
-              'status-human': character.species === 'Human',
-              'status-mythological': character.species === 'Mythological Creature',
-              'status-robot': character.species === 'Robot',
-              'status-humanoid': character.species === 'Humanoid',
-              'status-animal': character.species === 'Animal',
-              'status-cronenberg': character.species === 'Cronenberg',
-              'status-poopybutthole': character.species === 'Poopybutthole',
-              'status-disease': character.species === 'Disease',
-              'status-unknowns': character.species === 'unknown'
-            }">{{ character.species }}</span></h6>
-            <h6 class="card-text">Gender: <span :class="{
-              'status-male': character.gender === 'Male',
-              'status-female': character.gender === 'Female',
-              'status-genderless': character.gender === 'Genderless',
-              'status-unknownn': character.gender === 'unknown'
-            }">{{ character.gender }}</span></h6>
+            <h6 class="card-text">Status: <span :class="colorTextStatus(character)">{{ character.status }}</span></h6>
+            <h6 class="card-text">Species: <span :class="colorTextSpecies(character)">{{ character.species }}</span></h6>
+            <h6 class="card-text">Gender: <span :class="colorTextGender(character)">{{ character.gender }}</span></h6>
           </div>
         </div>
       </div>
@@ -49,8 +29,48 @@ export default {
   name: 'CharacterList',
   setup() {
     const store = useCharacterStore();
+    const status = {
+      alive: 'status-alive',
+      dead: 'status-dead',
+      unknown: 'status-unknown'
+    }
+    const species = {
+      alien: 'status-alien',
+      human: 'status-human',
+      mythologicalcreature: 'status-mythological',
+      robot: 'status-robot',
+      humanoid: 'status-humanoid',
+      animal: 'status-animal',
+      cronenberg: 'status-cronenberg',
+      poopybutthole: 'status-poopybutthole',
+      disease: 'status-disease',
+      unknown: 'status-unknowns'
+    }
+    const gender = {
+      male: 'status-male',
+      female: 'status-female',
+      genderless: 'status-genderless',
+      unknown: 'status-unknownn'
+    }
 
     const filteredCharacters = computed(() => store.filteredCharacters);
+
+    const pure = ((value, options) => {
+      return options[value]
+    });
+
+    const colorTextStatus = ((character) => {
+      return pure(character.status.toLowerCase(), status)
+    });
+
+    const colorTextSpecies = ((character) => {
+      const formatterSpecies = character.species.toLowerCase().replace(/\s+/g, '')
+      return pure(formatterSpecies, species)
+    });
+
+    const colorTextGender = ((character) => {
+      return pure(character.gender.toLowerCase(), gender)
+    });
 
     const nextPage = () => store.nextPage();
     const prevPage = () => store.prevPage();
@@ -59,6 +79,9 @@ export default {
 
     return {
       filteredCharacters,
+      colorTextStatus,
+      colorTextSpecies,
+      colorTextGender,
       nextPage,
       prevPage,
       hasNext: computed(() => store.hasNext),
