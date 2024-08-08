@@ -18,29 +18,45 @@ export const useCharacterStore = defineStore('character', {
     actions: {
         async fetchCharacters(page = 1) {
             try {
-                const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}`);
+                const { name, status, species, gender } = this.filters;
+                const params = {
+                    page,
+                    ...(name && { name }), // Solo añadir el parámetro si tiene valor
+                    ...(status && { status }),
+                    ...(species && { species }),
+                    ...(gender && { gender }),
+                };
+                const response = await axios.get('https://rickandmortyapi.com/api/character', { params });
                 this.allCharacters = response.data.results;
                 this.hasNext = !!response.data.info.next;
                 this.hasPrev = !!response.data.info.prev;
                 this.currentPage = page;
-                this.applyFilters();  // Aplicar filtros al cargar datos
+                this.applyFilters(); // Aplicar filtros después de cargar datos
             } catch (error) {
                 console.error('Error fetching characters:', error);
             }
         },
         setGenderFilter(gender) {
             this.filters.gender = gender;
-            this.applyFilters();
+            this.fetchCharacters(this.currentPage);
         },
         setStatusFilter(status) {
             this.filters.status = status;
-            this.applyFilters();
+            this.fetchCharacters(this.currentPage);
+        },
+        setSpeciesFilter(species) {
+            this.filters.species = species;
+            this.fetchCharacters(this.currentPage);
+        },
+        setNameFilter(name) {
+            this.filters.name = name;
+            this.fetchCharacters(this.currentPage);
         },
         applyFilters() {
             const { name, status, species, gender } = this.filters;
             this.filteredCharacters = this.allCharacters.filter(character => {
                 return (
-                    (name === '' || character.name.includes(name)) &&
+                    (name === '' || character.name.toLowerCase().includes(name.toLowerCase())) &&
                     (status === '' || character.status === status) &&
                     (species === '' || character.species === species) &&
                     (gender === '' || character.gender === gender)
@@ -59,5 +75,6 @@ export const useCharacterStore = defineStore('character', {
         },
     },
 });
+
 
 
