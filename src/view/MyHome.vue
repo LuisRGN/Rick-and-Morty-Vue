@@ -1,6 +1,7 @@
 <!-- src/view/MyHome.vue -->
 <template>
-  <div class="container mt-2">
+  <div class="container mt-2 my-5 text-center">
+    <img :src="rm" alt="rm" class="img-fluid mb-4">
     <div class="row align-items-center">
       <div class="col-md-3">
         <SearchName/>
@@ -25,6 +26,7 @@ import CharacterList from '@/components/CharacterList.vue';
 import FilterForStatus from '@/components/FilterForStatus.vue';
 import FilterForSpecie from '@/components/FilterForSpecie.vue';
 import SearchName from '@/components/SearchName.vue';
+import rm from '@/assets/img/rm.png'
 
 export default {
   name: 'MyHome',
@@ -34,6 +36,11 @@ export default {
     FilterForStatus,
     FilterForSpecie,
     SearchName
+  },
+  setup(){
+    return {
+      rm
+    }
   }
 }
 </script>
