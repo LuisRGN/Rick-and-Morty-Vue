@@ -1,22 +1,30 @@
 <!-- src/components/CharacterList.vue -->
 <template>
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-4" v-for="character in filteredCharacters" :key="character.id">
-        <div class="card mb-4 custom-card-color custom-shadown" style="width: 18rem;">
-          <img :src="character.image" class="card-img-top" :alt="character.name">
-          <div class="card-body">
-            <h3 class="card-title">{{ character.name }}</h3>
-            <h6 class="card-text">Status: <span :class="colorTextStatus(character)">{{ character.status }}</span></h6>
-            <h6 class="card-text">Species: <span :class="colorTextSpecies(character)">{{ character.species }}</span></h6>
-            <h6 class="card-text">Gender: <span :class="colorTextGender(character)">{{ character.gender }}</span></h6>
+  <div>
+    <div class="container mt-4" v-if="!characterNotFound && !loading">
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3" v-for="character in filteredCharacters" :key="character.id">
+          <div class="card mb-4 custom-card-color custom-shadown" >
+            <img :src="character.image" class="card-img-top" :alt="character.name" >
+            <div class="card-body">
+              <h3 class="card-title">{{ character.name }}</h3>
+              <h6 class="card-text">Status: <span :class="colorTextStatus(character)">{{ character.status }}</span></h6>
+              <h6 class="card-text">Species: <span :class="colorTextSpecies(character)">{{ character.species }}</span></h6>
+              <h6 class="card-text">Gender: <span :class="colorTextGender(character)">{{ character.gender }}</span></h6>
+            </div>
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-evenly mt-4 p-4">
+        <button class="btn btn-dark" @click="prevPage" :disabled="!hasPrev">Previous</button>
+        <button class="btn btn-dark" @click="nextPage" :disabled="!hasNext">Next</button>
+      </div>
     </div>
-    <div class="d-flex justify-content-evenly mt-4 p-4">
-      <button class="btn btn-dark" @click="prevPage" :disabled="!hasPrev">Previous</button>
-      <button class="btn btn-dark" @click="nextPage" :disabled="!hasNext">Next</button>
+    <div v-if="!characterNotFound && loading">
+      <h1>Spinner</h1>
+    </div>
+    <div v-if="characterNotFound && !loading">
+      <h1>Personaje no encontrado</h1>
     </div>
   </div>
 </template>
@@ -55,6 +63,10 @@ export default {
 
     const filteredCharacters = computed(() => store.filteredCharacters);
 
+    const characterNotFound = computed(() => store.characterNotFound);
+
+    const loading = computed(() => store.loading);
+
     const pure = ((value, options) => {
       return options[value]
     });
@@ -79,6 +91,8 @@ export default {
 
     return {
       filteredCharacters,
+      characterNotFound,
+      loading,
       colorTextStatus,
       colorTextSpecies,
       colorTextGender,
