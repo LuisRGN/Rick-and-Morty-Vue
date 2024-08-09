@@ -5,6 +5,8 @@ export const useCharacterStore = defineStore('character', {
     state: () => ({
         allCharacters: [], // Lista original de personajes
         filteredCharacters: [], // Lista filtrada de personajes
+        characterNotFound: false,
+        loading: false,
         currentPage: 1,
         hasNext: false,
         hasPrev: false,
@@ -17,6 +19,8 @@ export const useCharacterStore = defineStore('character', {
     }),
     actions: {
         async fetchCharacters(page = 1) {
+            this.characterNotFound = false
+            this.loading = true
             try {
                 const { name, status, species, gender } = this.filters;
                 const params = {
@@ -32,8 +36,10 @@ export const useCharacterStore = defineStore('character', {
                 this.hasPrev = !!response.data.info.prev;
                 this.currentPage = page;
                 this.applyFilters(); // Aplicar filtros después de cargar datos
+                this.loading = false
             } catch (error) {
-                console.error('Error fetching characters:', error);
+                this.characterNotFound = true
+                this.loading = false
             }
         },
         setGenderFilter(gender) {
