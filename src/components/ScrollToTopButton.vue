@@ -1,11 +1,12 @@
 <template>
     <div v-if="isVisible" class="btn btn-dark back-to-top" @click="scrollToTop">
-      ⬆️
+      <img :src="backTop" alt="BackTop" style="width: 3rem;">
     </div>
   </template>
   
   <script>
   import { ref, onMounted, onUnmounted } from 'vue';
+  import backTop from '@/assets/img/arrowup.svg'
   
   export default {
     name: 'ScrollToTopButton',
@@ -32,7 +33,7 @@
         window.removeEventListener('scroll', handleScroll);
       });
   
-      return { isVisible, scrollToTop };
+      return { isVisible, scrollToTop, backTop };
     },
   };
   </script>
