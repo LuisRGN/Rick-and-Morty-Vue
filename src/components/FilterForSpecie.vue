@@ -26,7 +26,7 @@ export default {
             { value: 'Alien', label: 'Alien' },
             { value: 'Humanoid', label: 'Humanoid' },
             { value: 'Poopybutthole', label: 'Poopybutthole' },
-            { value: 'Mythological creature', label: 'Mythological Creature' },
+            { value: 'Mythological Creature', label: 'Mythological Creature' },
             { value: 'Animal', label: 'Animal' },
             { value: 'Robot', label: 'Robot' },
             { value: 'Cronenberg', label: 'Cronenberg' },
