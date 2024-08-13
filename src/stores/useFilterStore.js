@@ -69,6 +69,12 @@ export const useCharacterStore = defineStore('character', {
                 );
             });
         },
+        clearFilters() {
+            Object.keys(this.filters).forEach(key => {
+                this.filters[key] = '';
+            });
+            this.fetchCharacters(this.currentPage);
+        },
         nextPage() {
             if (this.hasNext) {
                 this.fetchCharacters(this.currentPage + 1);
