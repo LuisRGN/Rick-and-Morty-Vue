@@ -3,9 +3,9 @@
   <div>
     <div class="container mt-4" v-if="!characterNotFound && !loading">
       <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3" v-for="character in filteredCharacters" :key="character.id">
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4" v-for="character in filteredCharacters" :key="character.id">
           <div class="card mb-4 custom-card-color custom-shadown" >
-            <img :src="character.image" class="card-img-top" :alt="character.name" >
+            <img :src="character.image" :alt="character.name" >
             <div class="card-body">
               <h3 class="card-title">{{ character.name }}</h3>
               <h6 class="card-text">Status: <span :class="colorTextStatus(character)">{{ character.status }}</span></h6>
@@ -113,9 +113,14 @@ export default {
 
 
 <style scoped>
-.card-img-top {
-  width: 100%;
-  height: auto;
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-body {
+  flex: 1;
 }
 .custom-shadown{
   box-shadow: 0 0.1rem 0.2rem #00000033, 0 0.1rem 0.5rem #0000004d, 0 0.2rem 1.5rem #00000066;
