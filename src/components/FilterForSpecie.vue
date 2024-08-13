@@ -51,11 +51,6 @@ export default {
 </script>
 
 <style scoped>
-/* Agrega aquí tus estilos personalizados */
-</style>
-
-
-<style scoped>
 .custom-select {
   background-color: #8f8f8f; /* Color de fondo personalizado */
   color: #ffffff; /* Color del texto personalizado */
