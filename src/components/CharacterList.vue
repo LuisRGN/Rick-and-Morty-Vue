@@ -21,10 +21,10 @@
       </div>
     </div>
     <div v-if="!characterNotFound && loading">
-      <h1>Spinner</h1>
+      <MySpinner/>
     </div>
     <div v-if="characterNotFound && !loading">
-      <h1>Personaje no encontrado</h1>
+      <NotFound/>
     </div>
   </div>
 </template>
@@ -32,9 +32,15 @@
 <script>
 import { computed, onMounted } from 'vue';
 import { useCharacterStore } from '../stores/useFilterStore';
+import NotFound from './NotFound.vue';
+import MySpinner from './MySpinner.vue';
 
 export default {
   name: 'CharacterList',
+  components:{
+    NotFound,
+    MySpinner
+  },
   setup() {
     const store = useCharacterStore();
     const status = {
