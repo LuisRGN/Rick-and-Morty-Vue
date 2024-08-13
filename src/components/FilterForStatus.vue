@@ -1,19 +1,12 @@
 <template>
-    <div class="">
-        <div class="">
-            <div class="">
-                <div class="form-group">
-                    <label for="status" class="form-label text-light">Filter by Status</label>
-                    <select id="status" v-model="selectedStatus" @change="updateStatusFilter" class="form-select custom-select">
-                        <option value="">All</option>
-                        <option value="Alive">Alive</option>
-                        <option value="Dead">Dead</option>
-                        <option value="unknown">Unknown</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="form-group">
+    <label for="status" class="form-label text-light">Filter by Status</label>
+    <select id="status" v-model="selectedStatus" @change="updateStatusFilter" class="form-select custom-select">
+      <option v-for="option in statusOptions" :key="option.value" :value="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -26,6 +19,13 @@ export default {
     const store = useCharacterStore();
     const selectedStatus = ref(store.filters.status);
 
+    const statusOptions = [
+      {value: '', label: 'All'},
+      {value: 'Alive', label: 'Alive'},
+      {value: 'Dead', label: 'Dead'},
+      {value: 'unknown', label: 'unknown'}
+    ]
+
     const updateStatusFilter = () => {
       store.setStatusFilter(selectedStatus.value);
     };
@@ -37,6 +37,7 @@ export default {
     return {
       selectedStatus,
       updateStatusFilter,
+      statusOptions
     };
   }
 };
@@ -45,11 +46,16 @@ export default {
 
 <style scoped>
 .custom-select {
-  background-color: #8f8f8f; /* Color de fondo personalizado */
-  color: #ffffff; /* Color del texto personalizado */
+  background-color: #8f8f8f;
+  /* Color de fondo personalizado */
+  color: #ffffff;
+  /* Color del texto personalizado */
 }
+
 .custom-select:focus {
-  border-color: #93cca1; /* Color del borde cuando está enfocado */
-  box-shadow: 0 0 0 0.2rem rgba(0, 77, 64, 0.25); /* Sombra cuando está enfocado */
+  border-color: #93cca1;
+  /* Color del borde cuando está enfocado */
+  box-shadow: 0 0 0 0.2rem rgba(0, 77, 64, 0.25);
+  /* Sombra cuando está enfocado */
 }
 </style>
