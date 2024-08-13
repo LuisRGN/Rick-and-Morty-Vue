@@ -1,17 +1,10 @@
 <template>
-    <div class="from-group">
+    <div class="form-group">
         <label for="species" class="form-label text-light">Filter by Species</label>
         <select id="species" v-model="selectSpecies" @change="updateSpeciesFilter" class="form-select custom-select">
-            <option value="">All</option>
-            <option value="Human">Human</option>
-            <option value="Alien">Alien</option>
-            <option value="Humanoid">Humanoid</option>
-            <option value="Poopybutthole">Poopybutthole</option>
-            <option value="Mythological Creature">Mythological Creature</option>
-            <option value="Animal">Animal</option>
-            <option value="Robot">Robot</option>
-            <option value="Cronenberg">Cronenberg</option>
-            <option value="Disease">Disease</option>
+            <option v-for="option in speciesOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+            </option>
         </select>
     </div>
 </template>
@@ -26,10 +19,24 @@ export default {
         const store = useCharacterStore();
         const selectSpecies = ref(store.filters.species);
 
+        // Lista de opciones para el filtro de especie
+        const speciesOptions = [
+            { value: '', label: 'All' },
+            { value: 'Human', label: 'Human' },
+            { value: 'Alien', label: 'Alien' },
+            { value: 'Humanoid', label: 'Humanoid' },
+            { value: 'Poopybutthole', label: 'Poopybutthole' },
+            { value: 'Mythological creature', label: 'Mythological Creature' },
+            { value: 'Animal', label: 'Animal' },
+            { value: 'Robot', label: 'Robot' },
+            { value: 'Cronenberg', label: 'Cronenberg' },
+            { value: 'Disease', label: 'Disease' },
+        ];
+
         const updateSpeciesFilter = () => {
             store.setSpeciesFilter(selectSpecies.value);
         };
-        
+
         watch(() => store.filters.species, (newSpecies) => {
             selectSpecies.value = newSpecies;
         });
@@ -37,10 +44,16 @@ export default {
         return {
             selectSpecies,
             updateSpeciesFilter,
+            speciesOptions,
         };
     }
 };
 </script>
+
+<style scoped>
+/* Agrega aquí tus estilos personalizados */
+</style>
+
 
 <style scoped>
 .custom-select {
