@@ -19,55 +19,56 @@ export const useCharacterStore = defineStore('character', {
     }),
     actions: {
         async fetchCharacters(page = 1) {
-            this.characterNotFound = false
-            this.loading = true
+            this.characterNotFound = false;
+            this.loading = true;
             try {
                 const { name, status, species, gender } = this.filters;
                 const params = {
                     page,
-                    ...(name && { name }), // Solo añadir el parámetro si tiene valor
+                    ...(name && { name }),
                     ...(status && { status }),
                     ...(species && { species }),
                     ...(gender && { gender }),
                 };
                 const response = await axios.get('https://rickandmortyapi.com/api/character', { params });
-                this.allCharacters = response.data.results;
+                const allCharacters = response.data.results;
+
+                // Aplicar filtros directamente aquí
+                this.filteredCharacters = allCharacters.filter(character => {
+                    return (
+                        (name === '' || character.name.toLowerCase().includes(name.toLowerCase())) &&
+                        (status === '' || character.status === status) &&
+                        (species === '' || character.species === species) &&
+                        (gender === '' || character.gender === gender)
+                    );
+                });
+
                 this.hasNext = !!response.data.info.next;
                 this.hasPrev = !!response.data.info.prev;
                 this.currentPage = page;
-                this.applyFilters(); // Aplicar filtros después de cargar datos
-                this.loading = false
+                this.loading = false;
             } catch (error) {
-                this.characterNotFound = true
-                this.loading = false
+                console.error('Error fetching characters:', error.response ? error.response.data : error.message);
+                this.characterNotFound = true;
+                this.loading = false;
             }
         },
-        setGenderFilter(gender) {
-            this.filters.gender = gender;
+        updateFilter(filterName, value) {
+            this.filters[filterName] = value;
+            this.currentPage = 1;
             this.fetchCharacters(this.currentPage);
+        },
+        setGenderFilter(gender) {
+            this.updateFilter('gender', gender);
         },
         setStatusFilter(status) {
-            this.filters.status = status;
-            this.fetchCharacters(this.currentPage);
+            this.updateFilter('status', status);
         },
         setSpeciesFilter(species) {
-            this.filters.species = species;
-            this.fetchCharacters(this.currentPage);
+            this.updateFilter('species', species);
         },
         setNameFilter(name) {
-            this.filters.name = name;
-            this.fetchCharacters(this.currentPage);
-        },
-        applyFilters() {
-            const { name, status, species, gender } = this.filters;
-            this.filteredCharacters = this.allCharacters.filter(character => {
-                return (
-                    (name === '' || character.name.toLowerCase().includes(name.toLowerCase())) &&
-                    (status === '' || character.status === status) &&
-                    (species === '' || character.species === species) &&
-                    (gender === '' || character.gender === gender)
-                );
-            });
+            this.updateFilter('name', name);
         },
         clearFilters() {
             Object.keys(this.filters).forEach(key => {
