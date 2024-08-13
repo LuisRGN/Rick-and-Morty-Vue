@@ -16,6 +16,9 @@
         <FilterForSpecie/>
       </div>
     </div>
+    <div class="mt-3">
+      <ClearFilters/>
+    </div>
     <CharacterList/>
   </div>
 </template>
@@ -26,6 +29,7 @@ import CharacterList from '@/components/CharacterList.vue';
 import FilterForStatus from '@/components/FilterForStatus.vue';
 import FilterForSpecie from '@/components/FilterForSpecie.vue';
 import SearchName from '@/components/SearchName.vue';
+import ClearFilters from '@/components/ClearFilters.vue';
 import rm from '@/assets/img/rm.png'
 
 export default {
@@ -35,7 +39,8 @@ export default {
     CharacterList,
     FilterForStatus,
     FilterForSpecie,
-    SearchName
+    SearchName,
+    ClearFilters
   },
   setup(){
     return {
