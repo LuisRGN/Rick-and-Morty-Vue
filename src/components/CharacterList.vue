@@ -7,7 +7,11 @@
           <div class="card mb-4 custom-card-color custom-shadown" >
             <img :src="character.image" :alt="character.name" >
             <div class="card-body">
-              <h3 class="card-title">{{ character.name }}</h3>
+              <router-link
+                :to="{ name: 'characterdetail', params: { id: character.id } }"
+                class="link-offset-2 link-underline link-underline-opacity-0 text-black link-secondary">
+                <h3>{{ character.name }}</h3>
+              </router-link>
               <h6 class="card-text">Status: <span :class="colorTextStatus(character)">{{ character.status }}</span></h6>
               <h6 class="card-text">Species: <span :class="colorTextSpecies(character)">{{ character.species }}</span></h6>
               <h6 class="card-text">Gender: <span :class="colorTextGender(character)">{{ character.gender }}</span></h6>
