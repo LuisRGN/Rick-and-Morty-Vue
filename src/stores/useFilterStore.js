@@ -5,8 +5,10 @@ export const useCharacterStore = defineStore('character', {
     state: () => ({
         allCharacters: [], // Lista original de personajes
         filteredCharacters: [], // Lista filtrada de personajes
+        episodes: [],
         characterNotFound: false,
         loading: false,
+        loadingEpisodes: false,
         currentPage: 1,
         hasNext: false,
         hasPrev: false,
@@ -16,6 +18,7 @@ export const useCharacterStore = defineStore('character', {
             species: '',
             gender: '',
         },
+        characterDetails: null,
     }),
     actions: {
         async fetchCharacters(page = 1) {
@@ -53,6 +56,37 @@ export const useCharacterStore = defineStore('character', {
                 this.loading = false;
             }
         },
+        async fetchCharacterById(id) {
+            this.characterDetails = null;
+            this.loading = true;
+            try {
+                const response = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
+                this.characterDetails = response.data;
+                if (this.characterDetails.episode && this.characterDetails.episode.length > 0) {
+                    await this.fetchEpisodes(this.characterDetails.episode);
+                }
+                this.loading = false;
+            } catch (error) {
+                console.error('Error fetching character by ID:', error.response ? error.response.data : error.message);
+                this.characterDetails = null;
+                this.loading = false;
+            }
+        },
+        async fetchEpisodes(episodeUrls) {
+            this.episodes = [];
+            this.loadingEpisodes = true;
+
+            try {
+                const episodePromises = episodeUrls.map((episodeUrl) => axios.get(episodeUrl));
+                const episodesResponse = await Promise.all(episodePromises);
+                this.episodes = episodesResponse.map((res) => res.data);
+                this.loadingEpisodes = false;
+            } catch (error) {
+                console.error('Error fetching episodes:', error.response ? error.response.data : error.message);
+                this.episodes = [];
+                this.loadingEpisodes = false;
+            }
+        },
         updateFilter(filterName, value) {
             this.filters[filterName] = value;
             this.currentPage = 1;
@@ -74,6 +108,7 @@ export const useCharacterStore = defineStore('character', {
             Object.keys(this.filters).forEach(key => {
                 this.filters[key] = '';
             });
+            this.currentPage = 1;
             this.fetchCharacters(this.currentPage);
         },
         nextPage() {
