@@ -16,7 +16,9 @@
 <template>
  <div id="app">
   <MyNavbar/>
-  <router-view />
+  <main>
+     <router-view />
+  </main>
   <ScrollToTopButton/>
   <MyFooter/>
  </div>
@@ -37,5 +39,7 @@ html, body {
 main {
   flex: 1;
 }
-
+footer {
+  padding: 1rem 0;
+}
 </style>
