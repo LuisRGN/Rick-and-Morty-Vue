@@ -4,11 +4,11 @@
     </div>
     <div>
         <div class="container" v-if="characterDetail && !loading">
-            <div class="d-flex flex-column align-items-center">
+            <div class="d-flex flex-column align-items-center mt-4">
+                <img :src="characterDetail.image" :alt="characterDetail.name" class="img-fluid mb-4 rounded">
                 <h1>{{ characterDetail.name }}</h1>
-                <img :src="characterDetail.image" :alt="characterDetail.name" class="img-fluid mb-4">
                 <h6>Status: {{ characterDetail.status }}</h6>
-                <h6>Species: {{ characterDetail.species }}</h6>
+                <h6>Specie: {{ characterDetail.species }}</h6>
                 <h6>Gender: {{ characterDetail.gender }}</h6>
                 <h6>Origin: {{ characterDetail.origin.name }}</h6>
                 <h6>Location: {{ characterDetail.location.name }}</h6>
