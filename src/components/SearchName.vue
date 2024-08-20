@@ -45,7 +45,8 @@ export default {
 .custom-select:focus {
   background-color: #8f8f8f; 
   color: #ffffff; 
-  border-color: #ffffff;
+  border-color: #93cca1;
+  box-shadow: none;
 }
 .custom-select:active {
   background-color: #8f8f8f; 
