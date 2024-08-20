@@ -44,7 +44,7 @@
     bottom: 20px;
     right: 20px;
     border-radius: 50%;
-    padding: 10px;
+    padding: 8px;
     font-size: 24px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 9999;
@@ -54,6 +54,16 @@
   .back-to-top:hover {
     background-color: #000000;
   }
+  @media (max-width: 576px) {
+  .back-to-top {
+    padding: 6px;
+    font-size: 15px;
+  }
+
+  .back-to-top img {
+    width: 2.5rem;
+  }
+}
   </style>
   
   
