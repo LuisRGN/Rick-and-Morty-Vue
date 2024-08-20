@@ -1,19 +1,23 @@
 <!-- src/view/MyHome.vue -->
 <template>
   <div class="container mt-2 my-5 text-center">
-    <img :src="rm" alt="rm" class="img-fluid mb-4">
+    <img :src="rm" alt="rm" class="img-fluid">
     <div class="row align-items-center">
-      <div class="col-md-3">
+      <div class="col-md-3 mb-2 mb-md-0">
         <SearchName/>
       </div>
-      <div class="col-md-3">
-        <MyComponente/>
-      </div>
-      <div class="col-md-3">
-       <FilterForStatus/> 
-      </div>
-      <div class="col-md-3">
-        <FilterForSpecie/>
+      <div class="col-12 col-md-9">
+        <div class="row">
+          <div class="col-4">
+            <MyComponente/>
+          </div>
+          <div class="col-4">
+            <FilterForStatus/> 
+          </div>
+          <div class="col-4">
+            <FilterForSpecie/>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mt-3">
