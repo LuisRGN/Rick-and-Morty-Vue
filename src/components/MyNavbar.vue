@@ -8,7 +8,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav" ref="navbarCollapse">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <router-link to="/" class="nav-link fs-3" aria-current="page">Home</router-link>
@@ -24,12 +24,33 @@
 </template>
 
 <script>
+import {ref, onMounted, onUnmounted} from 'vue'
+import { Collapse } from 'bootstrap';
 import rm from '@/assets/img/walpape.png'
 export default {
   name: "MyNavbar",
   setup(){
+    const navbarCollapse = ref(null);
+
+    const handleClickOutside = (event) => {
+      if (navbarCollapse.value && !navbarCollapse.value.contains(event.target)) {
+        const bsCollapse = new Collapse(navbarCollapse.value, {
+          toggle: false
+        });
+        bsCollapse.hide();
+      }
+    };
+
+    onMounted(() => {
+      document.addEventListener('click', handleClickOutside);
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener('click', handleClickOutside);
+    });
     return{
-      rm
+      rm,
+      navbarCollapse
     }
   }
 }
