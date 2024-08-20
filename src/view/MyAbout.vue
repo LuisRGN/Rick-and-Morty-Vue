@@ -19,5 +19,10 @@
   </script>
 
   <style scoped>
-
+  img{
+    mask-image: linear-gradient(
+      black 90%,
+      transparent
+    );
+  }
   </style>
