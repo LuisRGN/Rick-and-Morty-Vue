@@ -123,8 +123,12 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: transform 0.3s ease;
 }
-
+.card:hover{
+  transform: scale(1.1);
+  z-index: 9000;
+}
 .card-body {
   flex: 1;
 }
