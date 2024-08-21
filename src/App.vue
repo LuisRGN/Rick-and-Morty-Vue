@@ -28,6 +28,11 @@
 html, body {
   height: 100%;
   margin: 0;
+  cursor: url("./assets/img/pistola-laser.png") 16 16, auto;
+
+a, button, select, option {
+  cursor: url("./assets/img/pistolalaser.png") 16 16, auto;
+}
 }
 
 #app {
