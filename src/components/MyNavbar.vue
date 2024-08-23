@@ -14,6 +14,9 @@
               <router-link to="/" class="nav-link fs-3" aria-current="page">Home</router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/favorite" class="nav-link fs-3">Favorites</router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/about" class="nav-link fs-3">About</router-link>
             </li>
           </ul>
