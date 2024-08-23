@@ -19,6 +19,7 @@ export const useCharacterStore = defineStore('character', {
             gender: '',
         },
         characterDetails: null,
+        favorites: JSON.parse(localStorage.getItem('favorites')) || [],
     }),
     actions: {
         async fetchCharacters(page = 1) {
@@ -119,6 +120,27 @@ export const useCharacterStore = defineStore('character', {
         prevPage() {
             if (this.hasPrev) {
                 this.fetchCharacters(this.currentPage - 1);
+            }
+        },
+        // Acción para agregar un personaje a los favoritos
+        addToFavorites(character) {
+            this.favorites.push(character);
+            localStorage.setItem('favorites', JSON.stringify(this.favorites));
+        },
+
+        // Acción para eliminar un personaje de los favoritos
+        removeFromFavorites(characterId) {
+            this.favorites = this.favorites.filter(character => character.id !== characterId);
+            localStorage.setItem('favorites', JSON.stringify(this.favorites));
+        },
+        isFavorite(id) {
+            return this.favorites.some(favorite => favorite.id === id);
+        },
+        // Acción para obtener los personajes favoritos desde el localStorage
+        loadFavorites() {
+            const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+            if (storedFavorites) {
+                this.favorites = storedFavorites;
             }
         },
     },
